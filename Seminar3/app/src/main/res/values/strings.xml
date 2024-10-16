@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Seminar3</string>
+    <string name="name">Nume:</string>
+
+    <string name="grupa">Grupa:</string>
+    <string name="facultate">Facultate:</string>
+    <string name="integralist">Integralist?</string>
+    <string name="nume_hint">John Doe</string>
+    <string name="grupa_hint">1099</string>
+    <string name="hint_facultate">CSIE</string>
+</resources>
