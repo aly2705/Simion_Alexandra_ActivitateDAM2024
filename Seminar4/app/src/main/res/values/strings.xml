@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string-array name="zileSapt">
+        <item>Luni</item>
+        <item>Marti</item>
+        <item>Miercuri</item>
+        <item>Joi</item>
+        <item>Vineri</item>
+        <item>Sambata</item>
+        <item>Duminica</item>
+    </string-array>
+</resources>

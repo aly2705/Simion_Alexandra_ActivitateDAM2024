@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AdaugaAntrenament"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:text="Ziua saptamanii"
+            android:layout_marginEnd="30dp"
+        />
+        <Spinner
+            android:id="@+id/zi"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/zileSapt"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:text="Numar Exercitii"
+            android:layout_marginEnd="30dp"
+            />
+        <EditText
+            android:id="@+id/nrExercitii"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:hint="5"
+            android:inputType="number"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:text="Durata (minute)"
+            android:layout_marginEnd="30dp"
+            />
+        <EditText
+            android:id="@+id/minute"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:hint="45"
+            android:inputType="number"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:text="Focus"
+            android:layout_marginEnd="30dp"
+            />
+        <EditText
+            android:id="@+id/focus"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:hint="Legs"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Data"
+            android:layout_marginEnd="30dp"
+            />
+
+        <DatePicker
+            android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="Adauga Antrenament"/>
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
