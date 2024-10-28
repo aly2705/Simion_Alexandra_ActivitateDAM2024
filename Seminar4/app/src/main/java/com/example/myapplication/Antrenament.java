@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class Antrenament {
+public class Antrenament implements Parcelable {
     private String ziSapt;
     private int nrExercitii;
     private int durata;
@@ -24,6 +27,40 @@ public class Antrenament {
         this.focus = focus;
         this.data = data;
     }
+
+    protected Antrenament(Parcel in) {
+        ziSapt = in.readString();
+        nrExercitii = in.readInt();
+        durata = in.readInt();
+        focus = in.readString();
+        data=(java.util.Date)in.readSerializable();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ziSapt);
+        dest.writeInt(nrExercitii);
+        dest.writeInt(durata);
+        dest.writeString(focus);
+        dest.writeSerializable(data);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Antrenament> CREATOR = new Creator<Antrenament>() {
+        @Override
+        public Antrenament createFromParcel(Parcel in) {
+            return new Antrenament(in);
+        }
+
+        @Override
+        public Antrenament[] newArray(int size) {
+            return new Antrenament[size];
+        }
+    };
 
     public String getZiSapt() {
         return ziSapt;

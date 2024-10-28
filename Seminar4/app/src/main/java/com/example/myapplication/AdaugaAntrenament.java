@@ -48,7 +48,11 @@ public class AdaugaAntrenament extends AppCompatActivity {
             Date data = new Date(dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
 
             Antrenament antrenament = new Antrenament(nrExercitii, zi, minute, focus, data);
-            Toast.makeText(getApplicationContext(), antrenament.toString(), Toast.LENGTH_LONG).show();
+
+            Intent it = new Intent();
+            it.putExtra("antrenament", antrenament);
+            setResult(RESULT_OK, it);
+            finish();
         });
     }
 }
