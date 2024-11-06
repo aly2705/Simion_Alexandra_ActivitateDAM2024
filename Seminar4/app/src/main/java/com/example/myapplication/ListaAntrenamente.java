@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,6 +18,10 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.List;
 
 public class ListaAntrenamente extends AppCompatActivity {
+    private AntrenamentAdapter adapter = null;
+    private int idModificat = 0;
+
+    List<Antrenament> antrenamente = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +35,23 @@ public class ListaAntrenamente extends AppCompatActivity {
         });
 
         Intent it = getIntent();
-        List<Antrenament> antrenamente = it.getParcelableArrayListExtra("antrenamente");
+        antrenamente = it.getParcelableArrayListExtra("antrenamente");
 
         ListView lv = findViewById(R.id.lista);
 
-        ArrayAdapter<Antrenament> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, antrenamente);
+        adapter = new AntrenamentAdapter(antrenamente, getApplicationContext(), R.layout.list_item_antrenament);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), antrenamente.get(position).toString(), Toast.LENGTH_LONG).show();
+                Intent modificaAntrenamentIntent = new Intent(getApplicationContext(), AdaugaAntrenament.class);
+                modificaAntrenamentIntent.putExtra("antrenament" , antrenamente.get(position));
+                int idModificat = position;
+                startActivityForResult(modificaAntrenamentIntent, 234);
+
+
+
             }
         });
 
@@ -52,5 +63,15 @@ public class ListaAntrenamente extends AppCompatActivity {
                 return false;
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode==234){
+            antrenamente.set(idModificat, data.getParcelableExtra("antrenament"));
+            adapter.notifyDataSetChanged();
+        }
     }
 }

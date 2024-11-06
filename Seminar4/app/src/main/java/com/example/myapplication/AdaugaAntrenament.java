@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class AdaugaAntrenament extends AppCompatActivity {
@@ -28,10 +29,27 @@ public class AdaugaAntrenament extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Intent startedFromIntent = getIntent();
+        if(startedFromIntent.hasExtra("antrenament")){
+            Antrenament a = startedFromIntent.getParcelableExtra("antrenament");
+            Spinner spZi = findViewById(R.id.zi);
+            EditText etNrExercitii = findViewById(R.id.nrExercitii);
+            EditText etDurata = findViewById(R.id.minute);
+            EditText etFocus = findViewById(R.id.focus);
+            DatePicker dp = findViewById(R.id.data);
+
+            String[] zileArray = getResources().getStringArray(R.array.zileSapt);
+            int desiredPosition = Arrays.asList(zileArray).indexOf(a.getZiSapt());
+            spZi.setSelection(desiredPosition);
+
+            etNrExercitii.setText(String.valueOf(a.getNrExercitii()));
+            etDurata.setText(String.valueOf(a.getDurata()));
+            etFocus.setText(a.getFocus());
+            dp.init(a.getData().getYear(), a.getData().getMonth(), a.getData().getDate(), null);
+        }
 
         Button submitBtn = findViewById(R.id.submit_btn);
         submitBtn.setOnClickListener((view) -> {
-            // De completat
             EditText etNrExercitii = findViewById(R.id.nrExercitii);
             int nrExercitii = Integer.parseInt(etNrExercitii.getText().toString());
 
