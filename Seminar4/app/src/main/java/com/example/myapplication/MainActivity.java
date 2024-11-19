@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
             it.putParcelableArrayListExtra("antrenamente", (ArrayList<? extends Parcelable>) antrenamente);
             startActivity(it);
         });
+
+        Button btnOnlineWorkouts = findViewById(R.id.button3);
+        btnOnlineWorkouts.setOnClickListener((View view)->{
+            Intent it = new Intent(getApplicationContext(), ListaOnlineWorkouts.class);
+            startActivity(it);
+        });
     }
 
     @Override
