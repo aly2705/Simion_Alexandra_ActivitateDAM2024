@@ -55,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
             Intent it = new Intent(getApplicationContext(), ListaOnlineWorkouts.class);
             startActivity(it);
         });
+
+        Button btnSituatii = findViewById(R.id.button4);
+        btnSituatii.setOnClickListener((View view)->{
+            Intent it = new Intent(getApplicationContext(), JsonParsingActivity.class);
+            startActivity(it);
+        });
     }
 
     @Override

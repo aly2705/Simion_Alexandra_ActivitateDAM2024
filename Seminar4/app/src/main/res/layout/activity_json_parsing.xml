@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JsonParsingActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <Button
+        android:id="@+id/extractBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extrage disciplina"/>
+
+
+<ListView
+    android:id="@+id/situatiiLV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+</LinearLayout>
