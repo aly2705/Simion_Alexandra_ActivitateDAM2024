@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,11 +14,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AdaugaAntrenament extends AppCompatActivity {
+    public AntrenamentDatabase database = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,8 @@ public class AdaugaAntrenament extends AppCompatActivity {
             dp.init(a.getData().getYear(), a.getData().getMonth(), a.getData().getDate(), null);
         }
 
+        database = Room.databaseBuilder(getApplicationContext(), AntrenamentDatabase.class, "AntrenamentDatabase").build();
+
         Button submitBtn = findViewById(R.id.submit_btn);
         submitBtn.setOnClickListener((view) -> {
             EditText etNrExercitii = findViewById(R.id.nrExercitii);
@@ -66,6 +79,28 @@ public class AdaugaAntrenament extends AppCompatActivity {
             Date data = new Date(dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
 
             Antrenament antrenament = new Antrenament(nrExercitii, zi, minute, focus, data);
+
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        FileOutputStream fs = openFileOutput("antrenamente.txt", MODE_PRIVATE);
+                        OutputStreamWriter out = new OutputStreamWriter(fs);
+                        BufferedWriter writer = new BufferedWriter(out);
+                        writer.write(antrenament.toString());
+
+
+                        writer.close();
+                        out.close();
+                        fs.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    database.antrenamentDAO().insertAntrenament(antrenament);
+                }
+            });
 
             Intent it = new Intent();
             it.putExtra("antrenament", antrenament);

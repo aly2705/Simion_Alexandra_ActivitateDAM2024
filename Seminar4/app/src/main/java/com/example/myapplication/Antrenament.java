@@ -3,9 +3,16 @@ package com.example.myapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "antrenamente")
 public class Antrenament implements Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String ziSapt;
     private int nrExercitii;
     private int durata;
@@ -29,6 +36,7 @@ public class Antrenament implements Parcelable {
     }
 
     protected Antrenament(Parcel in) {
+        id = in.readInt();
         ziSapt = in.readString();
         nrExercitii = in.readInt();
         durata = in.readInt();
@@ -38,6 +46,7 @@ public class Antrenament implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(ziSapt);
         dest.writeInt(nrExercitii);
         dest.writeInt(durata);
@@ -112,5 +121,13 @@ public class Antrenament implements Parcelable {
         sb.append(", data=").append(data);
         sb.append('}');
         return sb.toString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

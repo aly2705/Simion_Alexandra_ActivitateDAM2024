@@ -61,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
             Intent it = new Intent(getApplicationContext(), JsonParsingActivity.class);
             startActivity(it);
         });
+
+        Button btnFav = findViewById(R.id.button5);
+        btnFav.setOnClickListener((View view)->{
+            Intent it = new Intent(getApplicationContext(), ListaFavorite.class);
+            startActivity(it);
+        });
     }
 
     @Override
