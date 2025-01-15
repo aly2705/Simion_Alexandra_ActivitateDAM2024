@@ -3,7 +3,9 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -15,6 +17,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -58,6 +63,8 @@ public class AdaugaAntrenament extends AppCompatActivity {
             etFocus.setText(a.getFocus());
             dp.init(a.getData().getYear(), a.getData().getMonth(), a.getData().getDate(), null);
         }
+        FirebaseDatabase databaseFB = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = databaseFB.getReference("");
 
         database = Room.databaseBuilder(getApplicationContext(), AntrenamentDatabase.class, "AntrenamentDatabase").build();
 
@@ -79,6 +86,13 @@ public class AdaugaAntrenament extends AppCompatActivity {
             Date data = new Date(dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
 
             Antrenament antrenament = new Antrenament(nrExercitii, zi, minute, focus, data);
+
+            CheckBox cb = findViewById(R.id.checkOnline);
+            if(cb.isChecked()){
+                Log.d("buggy debuggy", "Hello i guess");
+                Toast.makeText(getApplicationContext(), antrenament.toString(), Toast.LENGTH_SHORT).show();
+                myRef.child("antrenamente").child(String.valueOf(antrenament.getId())).setValue(antrenament);
+            }
 
             Executor executor = Executors.newSingleThreadExecutor();
             executor.execute(new Runnable() {
